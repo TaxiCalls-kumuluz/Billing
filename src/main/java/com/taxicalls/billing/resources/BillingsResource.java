@@ -1,6 +1,7 @@
 package com.taxicalls.billing.resources;
 
 import com.taxicalls.billing.model.Billing;
+import com.taxicalls.protocol.Response;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 @Path("/billings")
 @Produces(MediaType.APPLICATION_JSON)
@@ -45,22 +45,22 @@ public class BillingsResource {
         em.getTransaction().begin();
         em.persist(billing);
         em.getTransaction().commit();
-        return Response.status(Response.Status.CREATED).entity(billing).build();
+        return Response.successful(billing);
     }
 
     @GET
     public Response getBillings() {
         List<Billing> billings = em.createNamedQuery("Billing.findAll", Billing.class).getResultList();
-        return Response.ok(billings).build();
+        return Response.successful(billings);
     }
 
     @GET
     @Path("/{id}")
-    public Response getBilling(@PathParam("id") Integer id) {
+    public Response getBilling(@PathParam("id") Long id) {
         Billing billing = em.find(Billing.class, id);
         if (billing == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.notFound();
         }
-        return Response.ok(billing).build();
+        return Response.successful(billing);
     }
 }
