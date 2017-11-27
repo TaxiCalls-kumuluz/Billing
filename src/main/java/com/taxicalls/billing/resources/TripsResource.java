@@ -48,6 +48,24 @@ public class TripsResource {
     public Response createTrip(Trip trip) {
         LOGGER.log(Level.INFO, "createTrip() invoked");
         Billing billing = new Billing();
+        if (trip == null) {
+            return Response.successful();
+        }
+        if (trip.getAddressTo() == null) {
+            return Response.successful();
+        }
+        if (trip.getAddressTo().getCoordinate() == null) {
+            return Response.successful();
+        }
+        if (trip.getAddressFrom() == null) {
+            return Response.successful();
+        }
+        if (trip.getAddressFrom().getCoordinate() == null) {
+            return Response.successful();
+        }
+        if (trip.getPassengers() == null) {
+            return Response.successful();
+        }
         billing.setPrice(trip.getAddressTo().getCoordinate().getEuclidienDistance(trip.getAddressFrom().getCoordinate()) / trip.getPassengers().size());
         billing.setFromEntity(Driver.class.getSimpleName());
         billing.setFromId(trip.getDriver().getId());

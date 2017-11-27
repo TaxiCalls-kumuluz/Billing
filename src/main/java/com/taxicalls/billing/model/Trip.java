@@ -18,6 +18,7 @@ public class Trip implements Serializable {
     private Address addressFrom;
     private Address addressTo;
     private Driver driver;
+    private Passenger author;
     private Set<Passenger> passengers;
     private Progress progress;
 
@@ -44,8 +45,20 @@ public class Trip implements Serializable {
         return progress;
     }
 
+    public void setProgress(Progress progress) {
+        this.progress = progress;
+    }
+
     public Driver getDriver() {
         return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
+    public Passenger getAuthor() {
+        return author;
     }
 
     public Set<Passenger> getPassengers() {

@@ -32,10 +32,13 @@ public class Passenger implements Serializable {
 
     public void setEmail(String email) {
     }
-    
+
     public void setPassword(String password) {
     }
-    
+
+    public void setCreditCard(String creditCard) {
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
